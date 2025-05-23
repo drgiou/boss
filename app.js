@@ -6,19 +6,21 @@ const scene = new THREE.Scene();
 // scene.background = new THREE.Color(0x87CEEB); // Sky blue background - Will be replaced by texture
 
 // Skybox using CubeTextureLoader
-const loader = new THREE.CubeTextureLoader();
+// const loader = new THREE.CubeTextureLoader();
 // Placeholder URLs - replace with actual URLs to CC0 skybox images
-const texture = loader.load([
-    'https://threejs.org/examples/textures/cube/Park3Med/px.jpg', // Positive X (Right)
-    'https://threejs.org/examples/textures/cube/Park3Med/nx.jpg', // Negative X (Left)
-    'https://threejs.org/examples/textures/cube/Park3Med/py.jpg', // Positive Y (Top)
-    'https://threejs.org/examples/textures/cube/Park3Med/ny.jpg', // Negative Y (Bottom)
-    'https://threejs.org/examples/textures/cube/Park3Med/pz.jpg', // Positive Z (Front/Forward)
-    'https://threejs.org/examples/textures/cube/Park3Med/nz.jpg'  // Negative Z (Back)
-], () => {
-    // texture.colorSpace = THREE.SRGBColorSpace; // Adjust if needed based on texture source
-    scene.background = texture;
-});
+// const texture = loader.load([
+//     'https://threejs.org/examples/textures/cube/Park3Med/px.jpg', // Positive X (Right)
+//     'https://threejs.org/examples/textures/cube/Park3Med/nx.jpg', // Negative X (Left)
+//     'https://threejs.org/examples/textures/cube/Park3Med/py.jpg', // Positive Y (Top)
+//     'https://threejs.org/examples/textures/cube/Park3Med/ny.jpg', // Negative Y (Bottom)
+//     'https://threejs.org/examples/textures/cube/Park3Med/pz.jpg', // Positive Z (Front/Forward)
+//     'https://threejs.org/examples/textures/cube/Park3Med/nz.jpg'  // Negative Z (Back)
+// ], () => {
+//     // texture.colorSpace = THREE.SRGBColorSpace; // Adjust if needed based on texture source
+//     scene.background = texture;
+// });
+// Using a solid color for the skybox as a fallback
+scene.background = new THREE.Color(0x87CEEB); // Sky blue background
 
 
 let characterMesh; // Declare characterMesh globally
@@ -46,11 +48,11 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 // If the canvas weren't already in the body, you'd do: document.body.appendChild(renderer.domElement);
 
 // Add lights
-const ambientLight = new THREE.AmbientLight(0x404040); // soft white light
+const ambientLight = new THREE.AmbientLight(0x999385); // Warmer and brighter ambient light
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-directionalLight.position.set(1, 1, 1);
+const directionalLight = new THREE.DirectionalLight(0xfff5e1, 1.2); // Slightly warmer, increased intensity
+directionalLight.position.set(2, 5, 3); // Higher, more angled light
 scene.add(directionalLight);
 
 // Create the ground plane
@@ -79,8 +81,8 @@ const houseMainBlockWidth = 20;
 const houseMainBlockHeight = 5;
 const houseMainBlockDepth = 10;
 
-// Placeholder Wall Texture
-const wallTextureUrl = 'https://example.com/textures/cartoon_wall.jpg';
+// Placeholder Wall Texture - User should replace with a texture from Kenney.nl Pattern Pack or similar CC0 source
+const wallTextureUrl = 'https://www.kenney.nl/assets/pattern-pack/conceptual_wall_texture.png'; // Conceptual URL
 const wallTexture = textureLoader.load(wallTextureUrl);
 const houseWallMaterial = new THREE.MeshStandardMaterial({
     color: 0xffffff, // White, so texture shows true color
@@ -94,8 +96,8 @@ houseMainBlockMesh.position.y = houseMainBlockHeight / 2;
 // Roof
 const roofHeight = 4;
 const roofGeometry = new THREE.ConeGeometry(houseMainBlockWidth * 0.75, roofHeight, 4); // Pyramid shape
-// Placeholder Roof Texture
-const roofTextureUrl = 'https://example.com/textures/cartoon_roof.jpg';
+// Placeholder Roof Texture - User should replace with a texture from Kenney.nl Pattern Pack or similar CC0 source
+const roofTextureUrl = 'https://www.kenney.nl/assets/pattern-pack/conceptual_roof_texture.png'; // Conceptual URL
 const roofTexture = textureLoader.load(roofTextureUrl);
 const houseRoofMaterial = new THREE.MeshStandardMaterial({
     color: 0xffffff, // White, so texture shows true color
@@ -155,9 +157,9 @@ function createTree(position, barkTexUrl, leavesTexUrl) {
     return treeGroup;
 }
 
-// Placeholder Tree Textures
-const placeholderBarkUrl = 'https://example.com/textures/cartoon_bark.jpg';
-const placeholderLeavesUrl = 'https://example.com/textures/cartoon_leaves.jpg';
+// Placeholder Tree Textures - User should replace with textures from Kenney.nl Nature Pack or similar CC0 source
+const placeholderBarkUrl = 'https://www.kenney.nl/assets/nature-pack/conceptual_tree_bark.png'; // Conceptual URL
+const placeholderLeavesUrl = 'https://www.kenney.nl/assets/nature-pack/conceptual_tree_leaves.png'; // Conceptual URL
 
 // Create and place a few trees
 const treePositions = [
